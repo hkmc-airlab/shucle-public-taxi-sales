@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="지자체 공공형택시 도입 검토를 위한 셔클 플랫폼 제안 자료">
+  <title>셔클 공공형택시 | 근거 있는 이동지원사업으로</title>
+  <style>
+    :root {
+      --navy: #071b34;
+      --navy-2: #0d3159;
+      --blue: #2462f7;
+      --blue-soft: #eaf0ff;
+      --green: #00b86b;
+      --green-soft: #e9faf2;
+      --orange: #f47a31;
+      --orange-soft: #fff0e7;
+      --red: #e94f5f;
+      --ink: #172033;
+      --muted: #657188;
+      --line: #dce3ed;
+      --paper: #ffffff;
+      --wash: #f4f7fb;
+      --shadow: 0 12px 32px rgba(20, 39, 68, .09);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #dce5f0;
+      font-family: Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", Arial, sans-serif;
+      word-break: keep-all;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::selection { color:#fff; background:var(--blue); }
+    .service-switcher { position:fixed; z-index:20; top:16px; right:18px; display:flex; align-items:center; gap:3px; padding:4px; border:1px solid rgba(255,255,255,.28); border-radius:12px; background:rgba(7,27,52,.88); box-shadow:0 8px 24px rgba(7,27,52,.22); backdrop-filter:blur(12px); }
+    .service-switcher button { min-height:34px; padding:7px 10px; border:0; border-radius:8px; color:#c9d8ec; background:transparent; font:800 11px/1 Pretendard, "Noto Sans KR", sans-serif; cursor:pointer; transition:color .18s ease, background .18s ease, transform .18s ease; }
+    .service-switcher button:hover { color:#fff; background:rgba(255,255,255,.12); }
+    .service-switcher button[aria-pressed="true"] { color:#071b34; background:#8cffc0; }
+    .service-switcher button:focus-visible { outline:3px solid #8cffc0; outline-offset:2px; }
+    body[data-service="drt"] { --blue:#1769ff; --blue-soft:#eaf1ff; }
+    .deck { max-width: 210mm; margin: 0 auto; background: var(--paper); box-shadow: var(--shadow); }
+    .page {
+      position: relative;
+      min-height: 297mm;
+      padding: 18mm 17mm 16mm;
+      overflow: hidden;
+      background: var(--paper);
+      display: flex;
+      flex-direction: column;
+    }
+    .page::after {
+      content: "";
+      position: absolute;
+      right: -30mm;
+      bottom: -37mm;
+      width: 95mm;
+      height: 95mm;
+      border: 1px solid rgba(36, 98, 247, .10);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .page-number {
+      position: absolute;
+      z-index: 2;
+      right: 17mm;
+      bottom: 9mm;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      color: #8390a6;
+    }
+    .brand {
+      position: relative;
+      z-index: 2;
+      display: inline-flex;
+      align-self: flex-start;
+      align-items: center;
+      line-height: 0;
+    }
+    .brand-logo { display: block; width: 28px; height: auto; aspect-ratio: 160 / 153; object-fit: contain; }
+    .eyebrow {
+      position: relative;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin: 16px 0 10px;
+      color: var(--blue);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .12em;
+    }
+    .eyebrow::before { content: ""; width: 16px; height: 2px; background: currentColor; }
+    h1, h2, h3, p { margin: 0; }
+    h1 { position: relative; z-index: 2; font-size: 40px; line-height: 1.23; letter-spacing: -.065em; }
+    h2 { position: relative; z-index: 2; font-size: 28px; line-height: 1.3; letter-spacing: -.06em; }
+    h3 { font-size: 15px; line-height: 1.4; letter-spacing: -.035em; }
+    .lead { position: relative; z-index: 2; margin-top: 15px; max-width: 480px; color: var(--muted); font-size: 15px; line-height: 1.75; letter-spacing: -.025em; }
+    .small { color: var(--muted); font-size: 11px; line-height: 1.6; letter-spacing: -.015em; }
+    .strong { color: var(--blue); }
+    .source { margin-top: auto; padding-top: 10px; color: #7b8799; font-size: 9px; line-height: 1.55; }
+
+    /* Cover */
+    .cover { color: #fff; background: linear-gradient(142deg, #06162d 0%, #08244a 55%, #164d83 100%); }
+    .cover::before { content: ""; position: absolute; width: 180mm; height: 180mm; right: -70mm; top: -72mm; border: 1px solid rgba(130, 195, 255, .22); border-radius: 50%; }
+    .cover::after { width: 110mm; height: 110mm; right: -48mm; bottom: -36mm; border-color: rgba(0, 215, 64, .35); }
+    .cover .brand, .closing .brand { padding: 0; background: transparent; }
+    .cover .brand-logo, .closing .brand-logo { width: 34px; height: auto; }
+    .cover .eyebrow { color: #8ab9ff; margin-top: 40px; }
+    .cover h1 { max-width: 495px; font-size: 43px; }
+    .cover h1 em { color: #8cffc0; font-style: normal; }
+    .cover .lead { color: #c7d7ed; max-width: 455px; }
+    .contact-capture { position:relative; z-index:2; max-width:520px; margin-top:22px; padding:16px; border:1px solid rgba(167, 205, 255, .34); border-radius:12px; background:rgba(3, 22, 47, .34); }
+    .contact-capture h2 { color:#fff; font-size:16px; line-height:1.35; letter-spacing:-.035em; }
+    .contact-capture p { margin-top:4px; color:#d5e3f6; font-size:11px; line-height:1.55; }
+    .contact-fields { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+    .contact-field { min-width:0; }
+    .contact-field label { display:block; margin:0 0 4px 1px; color:#dce9fc; font-size:11px; font-weight:800; }
+    .contact-field input { width:100%; min-height:36px; padding:8px 10px; border:1px solid rgba(206, 225, 250, .30); border-radius:7px; outline:none; color:#fff; background:rgba(255,255,255,.09); font:inherit; font-size:12px; transition:border-color .18s ease, background .18s ease, box-shadow .18s ease; }
+    .contact-field input::placeholder { color:#aebfd7; opacity:1; }
+    .contact-field input:hover { border-color:rgba(206, 225, 250, .56); }
+    .contact-field input:focus-visible { border-color:#8cffc0; background:rgba(255,255,255,.13); box-shadow:0 0 0 3px rgba(140,255,192,.16); }
+    .contact-footer { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:11px; }
+    .contact-instruction { flex:1; color:#d5e3f6; font-size:10px; line-height:1.45; }
+    .contact-submit { flex:0 0 auto; min-height:36px; padding:8px 12px; border:0; border-radius:7px; color:#071b34; background:#8cffc0; font:inherit; font-size:12px; font-weight:900; cursor:pointer; transition:transform .18s ease, background .18s ease; }
+    .contact-submit:hover { background:#b0ffd2; transform:translateY(-1px); }
+    .contact-submit:focus-visible { outline:3px solid rgba(140,255,192,.56); outline-offset:2px; }
+    .contact-submit:active { transform:translateY(0); }
+    .contact-confirmation { padding:4px 0 1px; }
+    .contact-confirmation strong { display:block; color:#b0ffd2; font-size:16px; letter-spacing:-.035em; }
+    .contact-confirmation span { display:block; margin-top:5px; color:#d5e3f6; font-size:11px; line-height:1.55; }
+    .cover-grid { position: relative; z-index: 2; display: grid; grid-template-columns: 1.2fr .8fr; gap: 12px; margin-top: auto; padding-top: 36px; }
+    .cover-card { min-height: 87px; padding: 15px; border: 1px solid rgba(255,255,255,.20); border-radius: 10px; background: rgba(255,255,255,.07); backdrop-filter: blur(5px); }
+    .cover-card b { display: block; margin-bottom: 7px; font-size: 13px; }
+    .cover-card span { display: block; color: #c7d7ed; font-size: 11px; line-height: 1.55; }
+    .cover-note { position: relative; z-index: 2; display:flex; gap:7px; align-items:center; margin-top:18px; color:#aabbd4; font-size:10px; }
+    .dot { width: 5px; height: 5px; border-radius: 50%; background: #00d740; }
+
+    /* General components */
+    .section-rule { width: 100%; height: 1px; margin: 19px 0; background: var(--line); }
+    .two-col { position:relative; z-index:2; display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:12px; }
+    .three-col { position:relative; z-index:2; display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:10px; }
+    .card { border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+    .card-pad { padding: 14px; }
+    .problem-card { min-height: 124px; padding: 14px; border-top: 3px solid var(--orange); }
+    .problem-index { color: var(--orange); font-size: 10px; font-weight: 900; letter-spacing: .1em; }
+    .problem-card h3 { margin-top: 7px; }
+    .problem-card p { margin-top: 8px; color: var(--muted); font-size: 11px; line-height: 1.6; }
+    .quote { position:relative; z-index:2; margin: 20px 0; padding: 17px 19px; border-left:4px solid var(--blue); border-radius: 0 10px 10px 0; background: var(--blue-soft); color: #173b78; font-size: 16px; font-weight: 800; line-height: 1.55; letter-spacing: -.04em; }
+    .label { display:inline-block; margin-bottom:7px; color:var(--blue); font-size:10px; font-weight:900; letter-spacing:.08em; }
+    .caption { color:var(--muted); font-size:11px; line-height:1.55; }
+    .pill { display:inline-flex; align-items:center; min-height:22px; padding: 4px 7px; border-radius: 99px; color:#1d55d4; background:var(--blue-soft); font-size:9px; font-weight:800; }
+    .pill.green { color:#087346; background:var(--green-soft); }
+    .pill.orange { color:#a94613; background:var(--orange-soft); }
+
+    /* Page 2 */
+    .pain-intro { position:relative; z-index:2; margin-top: 20px; padding: 13px 15px; border-radius:10px; background: var(--wash); color:#48556b; font-size:12px; line-height:1.6; }
+    .pain-map { position: relative; z-index:2; display:grid; grid-template-columns: 1fr 26px 1fr; gap: 0; align-items:stretch; margin-top: 14px; }
+    .pain-left, .pain-right { display:grid; gap:8px; }
+    .pain-row { padding:12px; border:1px solid var(--line); border-radius:8px; background:#fff; }
+    .pain-row b { display:block; margin-bottom:4px; font-size:12px; }
+    .pain-row span { display:block; color:var(--muted); font-size:11px; line-height:1.5; }
+    .pain-arrow { display:flex; align-items:center; justify-content:center; color:#9ca9ba; font-size:16px; }
+    .pain-right .pain-row { border-color:#cbd9ff; background:#fbfcff; }
+    .pain-right .pain-row b { color:#174fae; }
+    .decision-question { position:relative; z-index:2; display:grid; grid-template-columns: 30px 1fr; gap:10px; align-items:start; margin-top:16px; padding:13px 15px; border-radius:10px; background:var(--navy); color:#fff; }
+    .decision-question strong { display:block; margin-bottom:4px; font-size:13px; }
+    .decision-question span { color:#cbd8ea; font-size:10px; line-height:1.55; }
+    .question-mark { color:#9bc1ff; font-size:25px; font-weight:900; line-height:1; }
+
+    /* Page 3 */
+    .loop { position:relative; z-index:2; display:grid; grid-template-columns: repeat(4, 1fr); gap:7px; margin-top:19px; }
+    .loop-card { min-height:124px; padding:12px 10px; border:1px solid var(--line); border-radius:10px; background:#fff; }
+    .loop-number { color:var(--blue); font-size:10px; font-weight:900; letter-spacing:.08em; }
+    .loop-icon { display:flex; align-items:center; justify-content:center; width:31px; height:31px; margin:8px 0; border-radius:9px; background:var(--blue-soft); color:var(--blue); font-size:16px; font-weight:900; }
+    .loop-card b { display:block; font-size:12px; }
+    .loop-card span { display:block; margin-top:5px; color:var(--muted); font-size:11px; line-height:1.5; }
+    .operating-model { position:relative; z-index:2; margin-top:17px; padding:17px; border-radius:12px; background:linear-gradient(122deg, #eef4ff, #f9fbff); border:1px solid #d7e3ff; }
+    .operating-model h3 { color:var(--navy); }
+    .model-grid { display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:11px; }
+    .model-item { padding:11px; border-radius:8px; background:rgba(255,255,255,.75); }
+    .model-item b { display:block; margin-bottom:4px; color:#174fae; font-size:11px; }
+    .model-item span { color:var(--muted); font-size:11px; line-height:1.5; }
+
+    /* Page 4 */
+    .solution-table { position:relative; z-index:2; margin-top:16px; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+    .solution-row { display:grid; grid-template-columns: 1.04fr 1.27fr .78fr; border-top:1px solid var(--line); }
+    .solution-row:first-child { border-top:0; }
+    .solution-row > div { padding:11px; font-size:11px; line-height:1.5; }
+    .solution-row > div + div { border-left:1px solid var(--line); }
+    .solution-head { background:var(--navy); color:#fff; font-size:9px !important; font-weight:800; letter-spacing:.04em; }
+    .solution-pain { color:#4f5c70; }
+    .solution-answer { color:#173b78; font-weight:700; background:#fbfcff; }
+    .solution-proof { color:#087346; background:#f8fdfb; }
+    .note-box { position:relative; z-index:2; display:flex; gap:9px; margin-top:14px; padding:12px 14px; border:1px solid #c9ead9; border-radius:9px; background:var(--green-soft); }
+    .note-box b { color:#087346; font-size:11px; white-space:nowrap; }
+    .note-box span { color:#386654; font-size:11px; line-height:1.55; }
+
+    /* Page 5 */
+    .case-banner { position:relative; z-index:2; margin-top:19px; padding:14px 16px; border-radius:10px; color:#fff; background:linear-gradient(130deg, var(--navy), #145191); }
+    .case-banner b { display:block; margin-bottom:4px; font-size:14px; }
+    .case-banner span { color:#d5e4fa; font-size:11px; line-height:1.5; }
+    .metric-grid { position:relative; z-index:2; display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; margin-top:12px; }
+    .metric { min-height:104px; padding:11px 10px; border:1px solid var(--line); border-radius:10px; background:#fff; }
+    .metric b { display:block; color:var(--muted); font-size:10px; line-height:1.4; }
+    .metric strong { display:block; margin:8px 0 4px; color:var(--navy); font-size:23px; line-height:1; letter-spacing:-.06em; }
+    .metric span { color:#66748a; font-size:10px; line-height:1.4; }
+    .case-grid { position:relative; z-index:2; display:grid; grid-template-columns: 1.18fr .82fr; gap:11px; margin-top:12px; }
+    .trend-card { padding:14px; border:1px solid var(--line); border-radius:10px; background:#fff; }
+    .trend-card h3 { margin-bottom:11px; }
+    .trend { display:grid; grid-template-columns:58px 1fr 42px; gap:8px; align-items:center; margin-top:8px; font-size:11px; }
+    .trend label { color:#66748a; }
+    .bar { position:relative; height:9px; overflow:hidden; border-radius:99px; background:#e8edf4; }
+    .bar i { display:block; height:100%; border-radius:99px; background:linear-gradient(90deg, #3e81ff, #00b86b); }
+    .trend b { text-align:right; color:#253b5d; font-size:11px; }
+    .case-insight { padding:14px; border-radius:10px; color:#eff6ff; background:var(--navy); }
+    .case-insight .pill { margin-bottom:8px; color:#a9c7ff; background:rgba(143,190,255,.15); }
+    .case-insight h3 { margin-bottom:8px; color:#fff; }
+    .case-insight p { color:#cad8ea; font-size:11px; line-height:1.6; }
+    .case-insight hr { margin:11px 0; border:0; border-top:1px solid rgba(255,255,255,.15); }
+    .case-insight b { color:#9fdcbe; font-size:11px; }
+    .data-intro { position:relative; z-index:2; display:flex; align-items:flex-end; justify-content:space-between; gap:14px; margin-top:14px; }
+    .data-intro h3 { font-size:15px; }
+    .data-intro p { max-width:360px; color:var(--muted); font-size:10.5px; line-height:1.55; }
+    .data-catalog { position:relative; z-index:2; display:grid; grid-template-columns:repeat(2, 1fr); gap:8px; margin-top:8px; }
+    .data-card { padding:11px 12px; border:1px solid var(--line); border-radius:9px; background:#fff; }
+    .data-card b { display:block; margin-bottom:5px; color:var(--navy); font-size:11px; }
+    .data-card span { color:var(--muted); font-size:10px; line-height:1.5; }
+
+    /* Page 6 */
+    .reality-grid { position:relative; z-index:2; display:grid; grid-template-columns:repeat(3, 1fr); gap:9px; margin-top:17px; }
+    .reality { padding:13px 11px; border-radius:10px; border:1px solid var(--line); background:#fff; }
+    .reality .pill { margin-bottom:8px; }
+    .reality h3 { margin-bottom:7px; }
+    .reality p { color:var(--muted); font-size:11px; line-height:1.6; }
+    .reality .answer { display:block; margin-top:9px; color:#1754bd; font-size:11px; font-weight:800; line-height:1.5; }
+    .boundary { position:relative; z-index:2; display:grid; grid-template-columns: 92px 1fr; gap:13px; align-items:center; margin-top:16px; padding:14px; border:1px solid #ffd4b7; border-radius:10px; background:#fff9f5; }
+    .boundary b { color:#a94b1a; font-size:13px; line-height:1.4; }
+    .boundary p { color:#755b4d; font-size:10px; line-height:1.6; }
+
+    /* Page 7 */
+    .roadmap { position:relative; z-index:2; display:grid; grid-template-columns:repeat(4, 1fr); gap:0; margin-top:20px; }
+    .roadmap-step { position:relative; min-height:142px; padding:0 10px 0 12px; border-left:1px solid #cbd9ef; }
+    .roadmap-step:first-child { border-left:0; padding-left:0; }
+    .roadmap-step::before { content:""; position:absolute; top:-5px; left:-4px; width:8px; height:8px; border:2px solid var(--blue); border-radius:50%; background:#fff; }
+    .roadmap-step:first-child::before { left:-3px; }
+    .roadmap-step b { display:block; margin-bottom:8px; color:var(--blue); font-size:10px; letter-spacing:.07em; }
+    .roadmap-step h3 { margin-bottom:7px; }
+    .roadmap-step p { color:var(--muted); font-size:11px; line-height:1.55; }
+    .checklist { position:relative; z-index:2; display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:20px; }
+    .check { display:flex; gap:8px; align-items:flex-start; padding:10px 11px; border:1px solid var(--line); border-radius:8px; background:#fff; }
+    .check i { display:flex; flex:0 0 auto; align-items:center; justify-content:center; width:17px; height:17px; border-radius:50%; background:var(--green-soft); color:#078852; font-size:10px; font-style:normal; font-weight:900; }
+    .check b { display:block; margin-bottom:3px; font-size:10.5px; }
+    .check span { color:var(--muted); font-size:10.5px; line-height:1.45; }
+
+    /* Closing */
+    .closing { justify-content:center; color:#fff; background:linear-gradient(135deg, #06162d, #0b3161); }
+    .closing::before { content:""; position:absolute; top:-31mm; right:-22mm; width:120mm; height:120mm; border:1px solid rgba(126,183,255,.24); border-radius:50%; }
+    .closing .brand { color:#fff; position:absolute; top:18mm; left:17mm; }
+    .closing .eyebrow { color:#92bcff; }
+    .closing h2 { max-width:490px; color:#fff; font-size:34px; }
+    .closing .lead { color:#c6d5e9; }
+    .closing-statement { position:relative; z-index:2; display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:25px; }
+    .closing-statement div { padding:13px; border:1px solid rgba(255,255,255,.18); border-radius:9px; background:rgba(255,255,255,.07); }
+    .closing-statement b { display:block; margin-bottom:5px; color:#a8f3ca; font-size:11px; }
+    .closing-statement span { color:#d2deed; font-size:11px; line-height:1.55; }
+    .closing .source { position:relative; z-index:2; margin-top:20px; color:#8ca5c3; }
+
+    @media screen and (max-width: 680px) {
+      .service-switcher { top:12px; right:12px; }
+      .service-switcher button { min-height:32px; padding:7px 9px; font-size:10px; }
+      body { background:#fff; }
+      .deck { width:100%; box-shadow:none; }
+      .page { min-height:auto; padding:32px 24px 55px; }
+      .cover { min-height:100vh; }
+      h1 { font-size:34px; }
+      .cover h1 { font-size:38px; }
+      h2 { font-size:25px; }
+      .cover-grid, .two-col, .case-grid, .checklist { grid-template-columns:1fr; }
+      .contact-capture { margin-top:18px; padding:15px; }
+      .contact-fields { grid-template-columns:1fr; gap:9px; }
+      .contact-footer { align-items:flex-start; flex-direction:column; }
+      .contact-submit { width:100%; }
+      .three-col, .reality-grid, .data-catalog { grid-template-columns:1fr; }
+      .metric-grid, .loop, .roadmap { grid-template-columns:1fr 1fr; }
+      .solution-row { grid-template-columns: 1fr; }
+      .solution-row > div + div { border-left:0; border-top:1px solid var(--line); }
+      .solution-head { display:none; }
+      .pain-map { grid-template-columns:1fr; }
+      .pain-arrow { height:19px; transform:rotate(90deg); }
+      .roadmap-step { min-height:112px; padding-left:16px; }
+      .roadmap-step:first-child { padding-left:16px; }
+      .roadmap-step:first-child::before { left:-4px; }
+      .closing .brand { top:24px; left:24px; }
+      .closing .brand-logo { width:30px; }
+    }
+    @media print {
+      @page { size: A4; margin: 0; }
+      html, body { width:210mm; height:auto; background:#fff; }
+      .deck { width:210mm; max-width:none; box-shadow:none; }
+      .page { width:210mm; height:297mm; min-height:297mm; break-after:page; page-break-after:always; }
+      .page:last-child { break-after:auto; page-break-after:auto; }
+      .page::after { print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+      .cover, .closing, .case-banner, .case-insight, .decision-question { print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+      .service-switcher { display:none; }
+      .contact-capture { display:none; }
+      .card, .problem-card, .loop-card, .metric, .reality, .check { break-inside:avoid; page-break-inside:avoid; }
+    }
+  </style>
+</head>
+<body data-service="publicTaxi">
+  <div class="service-switcher" role="group" aria-label="검토할 서비스 선택">
+    <button type="button" data-service-choice="drt" aria-pressed="false">택시형 DRT</button>
+    <button type="button" data-service-choice="publicTaxi" aria-pressed="true">공공형택시</button>
+  </div>
+  <!-- Legacy wordmark definition retained only for backwards compatibility; visible marks use supplied BI symbols. -->
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
+    <defs>
+      <g id="shucle-logo-mark">
+        <path d="M150.764 80.5375C148.937 80.5375 147.151 81.0792 145.632 82.094C144.113 83.1087 142.929 84.551 142.23 86.2383C141.531 87.9257 141.349 89.7823 141.706 91.5732C142.063 93.3641 142.944 95.009 144.236 96.2996C145.529 97.5902 147.176 98.4687 148.968 98.8238C150.76 99.1789 152.617 98.9947 154.305 98.2946C155.992 97.5944 157.434 96.4098 158.448 94.8904C159.462 93.3711 160.002 91.5854 160 89.7592C160 88.5474 159.761 87.3475 159.297 86.2281C158.832 85.1086 158.152 84.0916 157.294 83.2351C156.436 82.3787 155.418 81.6996 154.298 81.2368C153.177 80.7739 151.976 80.5363 150.764 80.5375ZM150.764 92.9221C150.136 92.9221 149.522 92.736 149.001 92.3874C148.479 92.0388 148.072 91.5434 147.831 90.9637C147.591 90.3841 147.528 89.7462 147.651 89.1308C147.773 88.5155 148.076 87.9502 148.52 87.5065C148.963 87.0629 149.529 86.7607 150.145 86.6383C150.76 86.5159 151.399 86.5787 151.979 86.8189C152.558 87.059 153.054 87.4656 153.403 87.9873C153.752 88.5089 153.938 89.1223 153.938 89.7497C153.939 90.1671 153.858 90.5807 153.699 90.9667C153.54 91.3526 153.306 91.7035 153.012 91.9991C152.717 92.2946 152.366 92.5292 151.981 92.6892C151.595 92.8492 151.181 92.9316 150.764 92.9316V92.9221Z" fill="#00D740"/>
+        <path d="M93.3176 81.6522C93.3176 80.7199 93.6881 79.8257 94.3477 79.1665C95.0073 78.5072 95.9019 78.1369 96.8347 78.1369H118.271C119.868 78.1381 121.449 77.8249 122.925 77.215C124.4 76.6052 125.741 75.7107 126.871 74.5826C128 73.4546 128.896 72.1152 129.507 70.6409C130.119 69.1666 130.433 67.5864 130.433 65.9905V64.914C130.433 61.6901 129.152 58.5982 126.871 56.3185C124.59 54.0388 121.497 52.7581 118.271 52.7581H90.2485C89.0241 52.7606 87.8507 53.2486 86.9858 54.1148C86.1209 54.981 85.6352 56.1548 85.6352 57.3785C85.6352 58.6014 86.1212 59.7742 86.9864 60.6389C87.8515 61.5036 89.0249 61.9894 90.2485 61.9894H117.223C118.14 61.9894 119.02 62.3537 119.669 63.0022C120.318 63.6507 120.683 64.5303 120.683 65.4475C120.684 65.9024 120.595 66.3531 120.422 66.7738C120.249 67.1945 119.994 67.5768 119.673 67.8989C119.351 68.2211 118.969 68.4766 118.549 68.651C118.128 68.8254 117.678 68.9151 117.223 68.9151H95.7577C92.5346 68.9151 89.4435 70.1949 87.1644 72.4727C84.8853 74.7506 83.605 77.8401 83.605 81.0615V82.2428C83.6037 83.8387 83.9171 85.4192 84.5273 86.8939C85.1375 88.3687 86.0324 89.7088 87.161 90.8377C88.2896 91.9666 89.6298 92.8622 91.1048 93.4732C92.5799 94.0842 94.161 94.3987 95.7577 94.3987H128.946C130.172 94.3987 131.348 93.9119 132.215 93.0454C133.082 92.1789 133.569 91.0037 133.569 89.7783C133.567 88.5546 133.079 87.3818 132.212 86.5174C131.345 85.6529 130.171 85.1674 128.946 85.1674H96.8347C95.9019 85.1674 95.0073 84.7971 94.3477 84.1379C93.6881 83.4786 93.3176 82.5845 93.3176 81.6522Z" fill="#2462F7"/>
+        <path d="M131.815 35.3055C131.244 35.3055 130.696 35.0786 130.292 34.6749C129.888 34.2711 129.661 33.7235 129.661 33.1525V12.1845C129.661 8.96058 128.38 5.86869 126.099 3.58902C123.818 1.30935 120.725 0.0286255 117.499 0.0286255H90.2484C89.0249 0.0286255 87.8515 0.51441 86.9863 1.37911C86.1212 2.24381 85.6351 3.4166 85.6351 4.63947C85.6351 5.86235 86.1212 7.03516 86.9863 7.89986C87.8515 8.76457 89.0249 9.25035 90.2484 9.25035H115.526C116.696 9.25035 117.819 9.71504 118.646 10.5422C119.474 11.3694 119.939 12.4913 119.939 13.6611C119.939 14.8309 119.474 15.9529 118.646 16.78C117.819 17.6072 116.696 18.0719 115.526 18.0719H90.2484C89.024 18.0744 87.8506 18.5624 86.9857 19.4286C86.1209 20.2948 85.6351 21.4686 85.6351 22.6923C85.6351 23.9152 86.1212 25.088 86.9863 25.9527C87.8515 26.8174 89.0249 27.3032 90.2484 27.3032H115.526C116.696 27.3032 117.819 27.7679 118.646 28.5951C119.474 29.4222 119.939 30.5441 119.939 31.714V33.1429C119.939 33.4265 119.883 33.7072 119.774 33.9691C119.665 34.2309 119.506 34.4687 119.305 34.6687C119.104 34.8687 118.865 35.0272 118.603 35.1348C118.34 35.2424 118.059 35.2972 117.775 35.2959H80.1831C78.9587 35.2985 77.7853 35.7864 76.9204 36.6526C76.0556 37.5188 75.5698 38.6925 75.5698 39.9163C75.5698 41.1392 76.0559 42.312 76.921 43.1767C77.7862 44.0414 78.9596 44.5272 80.1831 44.5272H136.924C138.148 44.5272 139.321 44.0414 140.186 43.1767C141.051 42.312 141.537 41.1392 141.537 39.9163C141.537 38.6925 141.052 37.5188 140.187 36.6526C139.322 35.7864 138.149 35.2985 136.924 35.2959L131.815 35.3055Z" fill="#2462F7"/>
+        <path d="M59.5951 4.85859V6.2971C59.5963 6.58064 59.5415 6.86162 59.4338 7.12393C59.3261 7.38625 59.1677 7.62473 58.9675 7.82566C58.7674 8.0266 58.5295 8.18604 58.2675 8.29484C58.0055 8.40363 57.7246 8.45962 57.4409 8.45962H48.5957C47.3722 8.45962 46.1988 8.94541 45.3336 9.81011C44.4685 10.6748 43.9824 11.8476 43.9824 13.0705C43.9824 14.2942 44.4682 15.468 45.333 16.3342C46.1979 17.2004 47.3713 17.6883 48.5957 17.6909H54.7626C56.0493 17.6909 57.2833 18.2017 58.1931 19.1111C59.103 20.0205 59.6141 21.2538 59.6141 22.5399C59.6154 23.1775 59.4908 23.809 59.2475 24.3984C59.0043 24.9878 58.6471 25.5235 58.1965 25.9748C57.7459 26.4261 57.2106 26.7841 56.6214 27.0284C56.0321 27.2727 55.4005 27.3984 54.7626 27.3984H48.5957C47.3722 27.3984 46.1988 27.8842 45.3336 28.7489C44.4685 29.6136 43.9824 30.7864 43.9824 32.0093C43.9824 33.233 44.4682 34.4068 45.333 35.273C46.1979 36.1392 47.3713 36.6271 48.5957 36.6296H57.46C58.0313 36.6296 58.5792 36.8565 58.9832 37.2602C59.3872 37.664 59.6141 38.2116 59.6141 38.7827V49.4238C59.6166 50.7116 60.1296 51.9459 61.0407 52.8565C61.9517 53.7671 63.1867 54.2798 64.4752 54.2823C65.7644 54.2823 67.0008 53.7705 67.9125 52.8593C68.8241 51.9482 69.3363 50.7124 69.3363 49.4238V4.85859C69.3363 3.57002 68.8241 2.33424 67.9125 1.42309C67.0008 0.511936 65.7644 3.73575e-05 64.4752 3.73575e-05C63.8352 -0.00247103 63.2011 0.121365 62.6091 0.364406C62.0171 0.607447 61.479 0.964908 61.0256 1.41632C60.5722 1.86772 60.2124 2.4042 59.9669 2.99491C59.7214 3.58562 59.595 4.21895 59.5951 4.85859Z" fill="#2462F7"/>
+        <path d="M50.054 45.5941L34.1269 32.2569C33.0737 31.3661 32.2265 30.2574 31.6439 29.0073C31.0614 27.7573 30.7573 26.3957 30.7527 25.0168V7.92611C30.7527 6.63755 30.2405 5.40177 29.3289 4.49062C28.4173 3.57946 27.1808 3.06757 25.8916 3.06757C25.2537 3.06756 24.622 3.19332 24.0328 3.4376C23.4436 3.68189 22.9083 4.03989 22.4577 4.49117C22.007 4.94245 21.6499 5.47814 21.4066 6.06755C21.1634 6.65696 21.0388 7.28853 21.0401 7.92611V24.9977C21.0388 26.3782 20.7352 27.7417 20.1507 28.9924C19.5661 30.2432 18.7148 31.3509 17.6564 32.2379L1.73874 45.575C1.24925 45.9843 0.845357 46.486 0.55018 47.0515C0.255003 47.617 0.0743501 48.2352 0.0185697 48.8706C-0.0372107 49.5059 0.0329724 50.1461 0.225108 50.7543C0.417244 51.3626 0.727557 51.9269 1.13826 52.4151C1.96665 53.401 3.15266 54.018 4.43583 54.1305C5.71899 54.243 6.99438 53.8419 7.98189 53.0153L22.8511 40.5355C23.706 39.8276 24.7814 39.4401 25.8916 39.4401C27.0018 39.4401 28.0772 39.8276 28.9322 40.5355L43.8299 53.0344C44.8174 53.861 46.0928 54.2621 47.376 54.1495C48.6591 54.037 49.8452 53.42 50.6735 52.4342C51.0832 51.9448 51.3921 51.3794 51.5827 50.7705C51.7733 50.1616 51.8418 49.521 51.7842 48.8856C51.7267 48.2502 51.5442 47.6323 51.2473 47.0675C50.9504 46.5027 50.5449 46.002 50.054 45.5941Z" fill="#2462F7"/>
+      </g>
+    </defs>
+  </svg>
+  <main class="deck">
+    <section class="page cover" aria-label="표지">
+      <div class="brand"><img class="brand-logo" src="./assets/symbol_white.svg" alt="셔클"></div>
+      <div class="eyebrow">PUBLIC TAXI · MUNICIPALITY SALES DECK</div>
+      <h1>공공형택시를<br><em>근거 있는</em><br>이동지원사업으로</h1>
+      <p class="lead">셔클 공공형택시는 주민의 이동을 돕는 정책을, 이용·예산·성과 데이터까지 연결된 하나의 공공 이동 서비스로 만듭니다.</p>
+      <form class="contact-capture" data-recipient="yudamchoi@hyundai.com">
+        <h2>우리 지역에 맞는 공공형택시를 검토해 보세요.</h2>
+        <p>연락처를 남겨 주시면 셔클 담당자가 도입 상담을 준비합니다.</p>
+        <div class="contact-fields">
+          <div class="contact-field"><label for="organization">소속기관</label><input id="organization" name="소속기관" type="text" autocomplete="organization" placeholder="예: ○○군청" required></div>
+          <div class="contact-field"><label for="name">이름</label><input id="name" name="이름" type="text" autocomplete="name" placeholder="이름을 입력해 주세요" required></div>
+          <div class="contact-field"><label for="phone">연락처</label><input id="phone" name="연락처" type="tel" autocomplete="tel" inputmode="tel" placeholder="010-0000-0000" required></div>
+          <div class="contact-field"><label for="email">이메일</label><input id="email" name="이메일" type="email" autocomplete="email" placeholder="name@example.com" required></div>
+        </div>
+        <div class="contact-footer">
+          <span class="contact-instruction">입력한 정보는 이 페이지에 저장되지 않습니다. 메일 앱에서 내용을 확인한 뒤 <strong>보내기</strong>를 누르면 담당자에게 전달됩니다.</span>
+          <button class="contact-submit" type="submit">상담 메일 작성</button>
+        </div>
+      </form>
+      <div class="cover-grid">
+        <div class="cover-card"><b>의사결정의 질문을 바꿉니다</b><span>“택시를 지원할 수 있는가”에서 “서비스 품질과 예산 집행을 지속해서 증명할 수 있는가”로.</span></div>
+        <div class="cover-card"><b>영암군 운영 사례 기반</b><span>정식오픈 D+84의 실제 운영 데이터에서 출발해, 도입 전 꼭 설계해야 할 과제를 제시합니다.</span></div>
+      </div>
+      <div class="cover-note"><span class="dot"></span> 지자체 공공형택시 도입 검토용 · PDF 변환 최적화본</div>
+      <span class="page-number">01 / 08</span>
+    </section>
+
+    <section class="page" aria-labelledby="page2-title">
+      <div class="brand"><img class="brand-logo" src="./assets/symbol_blue.svg" alt="셔클"></div>
+      <div class="eyebrow">THE REAL DECISION</div>
+      <h2 id="page2-title">지자체·이용자·기사님 모두에게<br><span class="strong">편리하고 지속 가능한</span> 공공형택시</h2>
+      <p class="lead">공공형택시는 주민의 이동 편의와 기사님의 참여, 지자체의 정책 실행이 하나의 흐름으로 이어질 때 오래 지속될 수 있습니다.</p>
+      <div class="pain-intro">도입 검토 단계에서는 호출 수단뿐 아니라 대상자 관리, 공급 품질, 예산 증빙, 성과 보고까지 각 주체가 편리하게 연결되는 서비스를 함께 설계해야 합니다.</div>
+      <div class="pain-map" aria-label="기존 방식의 문제와 플랫폼 전환">
+        <div class="pain-left">
+          <div class="pain-row"><b>대상자·혜택 관리의 수기 의존</b><span>자격 확인, 이용 한도, 예외 처리가 담당자 개인의 파일과 기억에 흩어집니다.</span></div>
+          <div class="pain-row"><b>배차 품질을 알 수 없음</b><span>콜이 왜 실패했는지, 어떤 시간·지역에서 공급이 부족한지 데이터로 보이지 않습니다.</span></div>
+          <div class="pain-row"><b>정산과 감사 대응의 반복 작업</b><span>운행 내역을 다시 대조하고 증빙을 취합하며, 오류 원인을 건별로 되짚습니다.</span></div>
+          <div class="pain-row"><b>성과 보고가 ‘운행 건수’에 멈춤</b><span>사업 지속·확대의 근거가 될 이용 행태와 서비스 품질을 설명하기 어렵습니다.</span></div>
+        </div>
+        <div class="pain-arrow" aria-hidden="true">→</div>
+        <div class="pain-right">
+          <div class="pain-row"><b>정책 조건을 시스템 규칙으로</b><span>대상·혜택·한도·운행범위를 사업 설계에 맞춰 관리합니다.</span></div>
+          <div class="pain-row"><b>호출·수락·운행을 한 흐름으로</b><span>운영자는 공급 현황과 실패 패턴을 확인하고 대응할 근거를 가질 수 있습니다.</span></div>
+          <div class="pain-row"><b>운행 데이터가 정산 근거로</b><span>지원금과 이용자 결제금을 분리하고, 건별 이력을 추적합니다.</span></div>
+          <div class="pain-row"><b>운영 데이터가 성과 언어로</b><span>이용·공급·예산 지표를 통해 다음 정책 결정을 뒷받침합니다.</span></div>
+        </div>
+      </div>
+      <div class="decision-question"><div class="question-mark">?</div><div><strong>핵심 의사결정 질문</strong><span>우리 지역의 이동지원사업이 담당자의 노력에 의존하지 않고, 지역 수요 변화에도 관리 가능한 구조인가?</span></div></div>
+      <span class="page-number">02 / 08</span>
+    </section>
+
+    <section class="page" aria-labelledby="page3-title">
+      <div class="brand"><img class="brand-logo" src="./assets/symbol_blue.svg" alt="셔클"></div>
+      <div class="eyebrow">ONE OPERATING LOOP</div>
+      <h2 id="page3-title">셔클은 공공형택시의 기록을<br><span class="strong">정책 판단의 근거</span>로 연결합니다.</h2>
+      <p class="lead">서비스를 열고 끝나는 것이 아니라, 현장에서 쌓이는 데이터를 다음 사업 설계와 성과 보고로 연결합니다.</p>
+      <div class="loop">
+        <div class="loop-card"><div class="loop-number">01 · DESIGN</div><div class="loop-icon">◎</div><b>정책 설계</b><span>대상, 혜택, 횟수·금액 한도, 이용 범위를 지역 여건에 맞게 설정</span></div>
+        <div class="loop-card"><div class="loop-number">02 · ACCESS</div><div class="loop-icon">↗</div><b>이용 접근성</b><span>앱이 어려운 주민도 전화·대리호출·현장 등록으로 서비스 이용</span></div>
+        <div class="loop-card"><div class="loop-number">03 · RECORD</div><div class="loop-icon">⌁</div><b>이동 데이터</b><span>호출·수락·운행·결제 흐름을 하나의 사업 데이터로 기록</span></div>
+        <div class="loop-card"><div class="loop-number">04 · PROVE</div><div class="loop-icon">▥</div><b>정산·성과 증명</b><span>운행 단위 기록을 예산 집행 근거와 다음 사업의 지표로 전환</span></div>
+      </div>
+      <div class="operating-model">
+        <h3>플랫폼이 맡는 일, 지자체가 결정하는 일</h3>
+        <div class="model-grid">
+          <div class="model-item"><b>셔클 플랫폼</b><span>정책 조건의 시스템화, 호출·운행 이력, 정산 데이터, 성과 지표의 기반을 제공합니다.</span></div>
+          <div class="model-item"><b>지자체·사업 주체</b><span>지원 대상과 예산 기준을 결정하고, 데이터에 따라 공급·홍보·지원 정책을 조정합니다.</span></div>
+        </div>
+      </div>
+      <div class="quote">“기술이 정책 결정을 대신하지는 않습니다. 다만 지자체가 더 빠르고 근거 있게 판단할 수 있는 환경을 만듭니다.”</div>
+      <span class="page-number">03 / 08</span>
+    </section>
+
+    <section class="page" aria-labelledby="page4-title">
+      <div class="brand"><img class="brand-logo" src="./assets/symbol_blue.svg" alt="셔클"></div>
+      <div class="eyebrow">PAIN POINT → PLATFORM ANSWER</div>
+      <h2 id="page4-title">지자체가 해결하고 싶은 문제에<br>기능을 <span class="strong">직접 연결</span>합니다.</h2>
+      <p class="lead">기능 목록이 아니라, 사업을 추진하면서 실제로 발생하는 질문에 답하는 방식으로 도입을 설계합니다.</p>
+      <div class="solution-table" role="table" aria-label="문제와 셔클 공공형택시 해결 방식">
+        <div class="solution-row solution-head" role="row"><div>의사결정자가 겪는 문제</div><div>셔클 공공형택시의 운영 방식</div><div>확인 가능한 운영 근거</div></div>
+        <div class="solution-row" role="row"><div class="solution-pain">대상자·가구별 혜택을 일관되게 관리하기 어렵다</div><div class="solution-answer">대상 조건, 혜택 방식, 일·월·사업기간 한도와 이용 범위를 정책 규칙으로 설정</div><div class="solution-proof">인증·발급·상태 이력 조회</div></div>
+        <div class="solution-row" role="row"><div class="solution-pain">앱 사용이 어려운 주민이 서비스에서 배제될까 우려된다</div><div class="solution-answer">전화 등록·현장 등록·일괄 등록과 가족·보호자 대리호출을 함께 운영</div><div class="solution-proof">이용 접근 경로 다변화</div></div>
+        <div class="solution-row" role="row"><div class="solution-pain">기사 수락이 낮아도 원인을 파악·개선하기 어렵다</div><div class="solution-answer">호출·수락·거절·운행 흐름을 운영툴에서 확인하고, 기사별 수락 이력에 근거해 대응</div><div class="solution-proof">공급 품질 모니터링</div></div>
+        <div class="solution-row" role="row"><div class="solution-pain">정산 때마다 운행·지원금 내역을 다시 맞춰야 한다</div><div class="solution-answer">출발·도착·운행요금·지원금·이용자 결제금을 운행 단위로 기록하고 분리 집계</div><div class="solution-proof">건별 이력 추적</div></div>
+        <div class="solution-row" role="row"><div class="solution-pain">사업 효과를 의회·감사·내부 보고에서 설명하기 어렵다</div><div class="solution-answer">이용, 공급, 대기, 바우처 소진, 지역별 현황을 성과 지표로 확인·내보내기</div><div class="solution-proof">보고용 데이터 기반</div></div>
+      </div>
+      <div class="note-box"><b>도입의 포인트</b><span>셔클은 ‘모든 문제가 자동으로 해결된다’고 말하지 않습니다. 공급이 부족한 시간대, 정책 예외, 현장 교육처럼 지역이 결정해야 할 문제를 더 빨리 발견하고 관리할 수 있게 합니다.</span></div>
+      <span class="page-number">04 / 08</span>
+    </section>
+
+    <section class="page" aria-labelledby="page5-title">
+      <div class="brand"><img class="brand-logo" src="./assets/symbol_blue.svg" alt="셔클"></div>
+      <div class="eyebrow">CASE EVIDENCE · YEONGAM-GUN</div>
+      <h2 id="page5-title">공공 이동 지원의 성과는 ‘홍보 문구’가 아니라<br><span class="strong">매일 쌓이는 데이터</span>로 확인합니다.</h2>
+      <div class="case-banner"><b>영암군 공공형 100원 택시 · 정식오픈 D+84</b><span>2026년 7월 1일~9월 23일 운영 데이터. 아래 수치는 특정 지역·정책·공급 여건에서의 사례이며, 다른 지역의 성과를 보장하지 않습니다.</span></div>
+      <div class="metric-grid">
+        <div class="metric"><b>누적 호출</b><strong>2,644건</strong><span>정식오픈 후 84일</span></div>
+        <div class="metric"><b>이동완료율</b><strong>78.0%</strong><span>9월 단월 80.7%</span></div>
+        <div class="metric"><b>평균 픽업대기</b><strong>2.5분</strong><span>9월 완료 호출 기준</span></div>
+        <div class="metric"><b>완료 경험 이용자</b><strong>398명</strong><span>2회 이상 이용 338명</span></div>
+      </div>
+      <div class="data-intro"><h3>셔클이 제공하는 데이터 예시</h3><p>한 번의 이동에서 발생한 기록을 지자체의 정책 판단과 예산·성과 보고에 활용할 수 있도록 연결합니다.</p></div>
+      <div class="data-catalog">
+        <div class="data-card"><b>이용 현황</b><span>호출·배차성공·이동완료 건수, 일별 추이, 호출 결과별 분포</span></div>
+        <div class="data-card"><b>주민 이용</b><span>호출·탑승 회원 수, 이용 방식, 연령·성별, 행정구역별 현황</span></div>
+        <div class="data-card"><b>서비스 품질</b><span>평균 대기시간, 기사 수락·거절 이력, 시간대·지역별 호출과 배차 흐름</span></div>
+        <div class="data-card"><b>예산·집행</b><span>이용요금·지원금 항목별 집계, 바우처 이용 현황, 건별 운행·결제 이력</span></div>
+      </div>
+      <p class="source">출처: 영암군 공공형 100원 택시 운영 현황 보고서(시범오픈 2026.06 ~ 정식오픈 D+84, 2026.09.23 기준). 재이용률은 완료 경험 이용자 기준.</p>
+      <span class="page-number">05 / 08</span>
+    </section>
+
+    <section class="page" aria-labelledby="page6-title">
+      <div class="brand"><img class="brand-logo" src="./assets/symbol_blue.svg" alt="셔클"></div>
+      <div class="eyebrow">FROM DATA TO SCALE</div>
+      <h2 id="page6-title">서비스를 확대하려면,<br><span class="strong">반복 업무는 줄이고 판단의 근거는 늘려야</span> 합니다.</h2>
+      <p class="lead">셔클은 한 번의 이동에서 쌓인 기록을 정산·예산 증빙·성과 보고에 함께 활용하게 해, 지자체가 더 적은 공수로 사업을 관리하고 확대할 수 있게 합니다.</p>
+      <div class="reality-grid">
+        <article class="reality"><span class="pill green">운영 공수</span><h3>기록은 한 번, 활용은 여러 번</h3><p>호출·운행·결제 기록을 건별로 연결해 정산 대조, 예산 증빙, 이용 이력 확인에 같은 데이터를 활용합니다.</p><span class="answer">→ 반복 확인과 수기 취합에 쓰는 공수를 최소화</span></article>
+        <article class="reality"><span class="pill">데이터 보강</span><h3>사업을 보는 데이터는 더 촘촘하게</h3><p>이용·주민·서비스 품질·예산 집행 데이터를 같은 기준으로 보고, 기간·지역·시간대별 변화도 함께 확인합니다.</p><span class="answer">→ 보고를 위한 숫자에서 정책 판단을 위한 데이터로</span></article>
+        <article class="reality"><span class="pill green">서비스 확대</span><h3>확대 판단은 더 명확하게</h3><p>어디에서 이용이 늘고, 어떤 시간대에 공급이 부족한지 확인해 지원 범위·기사 확보·예산 배분의 우선순위를 정합니다.</p><span class="answer">→ 감이 아닌 근거로 다음 지역과 다음 이용자를 검토</span></article>
+      </div>
+      <div class="boundary"><b>데이터가 서비스 확대를<br>뒷받침하는 방식</b><p><strong>셔클 플랫폼</strong>은 이용·공급·예산 데이터를 연결해 현재의 사업 현황을 보이게 합니다. <strong>지자체와 사업 주체</strong>는 이 근거를 바탕으로 이용 범위, 기사 확보, 예산 배분, 홍보의 우선순위를 결정합니다. 데이터가 쌓일수록 다음 지역과 다음 정책을 더 빠르게 검토할 수 있습니다.</p></div>
+      <div class="quote">공공형택시의 확장은 차량이나 예산만 늘리는 일이 아니라, 이미 쌓인 데이터를 다음 정책에 다시 쓰는 일에서 시작됩니다.</div>
+      <p class="source">기능·데이터 항목: 셔클 택시 서비스 가이드 기준. 지역별 적용 지표와 운영 방식은 사업 설계 과정에서 협의합니다.</p>
+      <span class="page-number">06 / 08</span>
+    </section>
+
+    <section class="page" aria-labelledby="page7-title">
+      <div class="brand"><img class="brand-logo" src="./assets/symbol_blue.svg" alt="셔클"></div>
+      <div class="eyebrow">START WITH A SHARED POLICY DESIGN</div>
+      <h2 id="page7-title">도입은 기능 선택이 아니라,<br><span class="strong">정책 설계의 합의</span>에서 시작합니다.</h2>
+      <p class="lead">셔클은 지역의 정책 목적과 현장 여건을 바탕으로, 주민에게 설명 가능하고 예산 집행 근거가 남는 서비스 구조를 함께 설계합니다.</p>
+      <div class="roadmap" aria-label="공공형택시 도입 검토 순서">
+        <div class="roadmap-step"><b>STEP 01</b><h3>정책 목표 정렬</h3><p>누구의 어떤 이동을 지원할지, 주민 편익과 예산 목표를 함께 정의합니다.</p></div>
+        <div class="roadmap-step"><b>STEP 02</b><h3>이용·혜택 조건 설계</h3><p>대상자, 가구 기준, 요금·바우처, 횟수·금액 한도, 운행 범위를 구체화합니다.</p></div>
+        <div class="roadmap-step"><b>STEP 03</b><h3>공급·운영 체계 준비</h3><p>기사 모집·교육, 콜센터·행정복지센터 역할, 문의·예외 처리 기준을 맞춥니다.</p></div>
+        <div class="roadmap-step"><b>STEP 04</b><h3>성과 기준 합의</h3><p>이용·완료율·대기·예산·지역별 수요 중 무엇을 정기적으로 볼지 결정합니다.</p></div>
+      </div>
+      <div class="section-rule"></div>
+      <div class="label">첫 미팅 전, 이 네 가지를 준비해 주세요</div>
+      <div class="checklist">
+        <div class="check"><i>✓</i><div><b>사업 대상과 우선순위</b><span>교통취약마을, 고령 주민, 특정 목적 이동 등 정책의 시작점</span></div></div>
+        <div class="check"><i>✓</i><div><b>운영 지역과 시간</b><span>출발·도착 가능 범위, 평일·주말·피크 시간대의 차이</span></div></div>
+        <div class="check"><i>✓</i><div><b>예산과 지원 방식</b><span>정액·정률·정액요금·전액 지원, 이용 한도와 사업 기간</span></div></div>
+        <div class="check"><i>✓</i><div><b>현장 운영 주체</b><span>지자체, 콜센터, 행정복지센터, 운수사·기사의 역할과 연락 체계</span></div></div>
+      </div>
+      <div class="note-box"><b>다음 단계</b><span>위 정보를 바탕으로 지역 맞춤형 서비스 구조, 오픈 준비 항목, 운영 지표와 검토 일정을 함께 제안합니다.</span></div>
+      <span class="page-number">07 / 08</span>
+    </section>
+
+    <section class="page closing" aria-label="마무리">
+      <div class="brand"><img class="brand-logo" src="./assets/symbol_white.svg" width="160" height="153" alt="셔클"></div>
+      <div class="eyebrow">A MORE SCALABLE PUBLIC TAXI</div>
+      <h2>운영 공수는 줄이고,<br>데이터는 <span style="color:#8cffc0">보강</span>하고,<br>서비스 확대는 쉽게.</h2>
+      <p class="lead">셔클 공공형택시는 반복 업무에 드는 공수는 최소화하고, 정책 판단에 필요한 데이터는 보강해 더 쉽게 확장할 수 있는 공공 이동 서비스 기반을 제공합니다.</p>
+      <div class="closing-statement"><div><b>반복 확인은 줄이고</b><span>운행·지원금·결제 기록을 하나의 데이터 흐름으로 연결합니다.</span></div><div><b>데이터는 보강하고</b><span>이용·주민·서비스 품질·예산 집행 데이터를 같은 기준으로 확인합니다.</span></div><div><b>예산 집행은 명확하게</b><span>건별 이력과 기간별 집계로 집행 근거와 성과를 설명합니다.</span></div><div><b>서비스 확대는 더 쉽게</b><span>지역·시간대별 수요를 바탕으로 다음 지원 범위와 우선순위를 검토합니다.</span></div></div>
+      <p class="source">본 자료의 사례 데이터는 영암군 공공형 100원 택시 운영 현황 보고서(2026.09.23 기준)를 바탕으로 작성했습니다. 기능·운영 방식은 셔클 택시 서비스 가이드 및 내부 정책 문서 기준이며, 구체적인 적용 범위는 지역별 사업 설계 과정에서 협의합니다.</p>
+      <span class="page-number">08 / 08</span>
+    </section>
+  </main>
+  <script>
+    (() => {
+      const deck = document.querySelector('.deck');
+      const choices = [...document.querySelectorAll('[data-service-choice]')];
+      const publicTaxiDeck = deck.innerHTML;
+      const inquiryForm = (service) => `
+        <form class="contact-capture" data-recipient="yudamchoi@hyundai.com">
+          <h2>${service}를 검토해 보세요.</h2>
+          <p>연락처를 남겨 주시면 셔클 담당자가 도입 상담을 준비합니다.</p>
+          <div class="contact-fields">
+            <div class="contact-field"><label for="organization">소속기관</label><input id="organization" name="소속기관" type="text" autocomplete="organization" placeholder="예: ○○군청" required></div>
+            <div class="contact-field"><label for="name">이름</label><input id="name" name="이름" type="text" autocomplete="name" placeholder="이름을 입력해 주세요" required></div>
+            <div class="contact-field"><label for="phone">연락처</label><input id="phone" name="연락처" type="tel" autocomplete="tel" inputmode="tel" placeholder="010-0000-0000" required></div>
+            <div class="contact-field"><label for="email">이메일</label><input id="email" name="이메일" type="email" autocomplete="email" placeholder="name@example.com" required></div>
+          </div>
+          <div class="contact-footer"><span class="contact-instruction">입력한 정보는 이 페이지에 저장되지 않습니다. 메일 앱에서 내용을 확인한 뒤 <strong>보내기</strong>를 누르면 담당자에게 전달됩니다.</span><button class="contact-submit" type="submit">상담 메일 작성</button></div>
+        </form>`;
+      const drtDeck = `
+        <section class="page cover" aria-label="택시형 DRT 표지">
+          <div class="brand"><img class="brand-logo" src="./assets/symbol_white.svg" alt="셔클"></div>
+          <div class="eyebrow">TAXI-BASED DRT · MUNICIPALITY SALES DECK</div>
+          <h1>저수요 노선을<br><em>수요에 맞춘</em><br>택시형 DRT로</h1>
+          <p class="lead">셔클 택시형 DRT는 앱·전화 호출과 실시간 배차를 연결해, 주민의 이동 선택지는 넓히고 지자체의 비효율 노선 부담은 줄입니다.</p>
+          ${inquiryForm('택시형 DRT')}
+          <div class="cover-grid"><div class="cover-card"><b>고정 노선의 빈자리를 바꿉니다</b><span>수요가 드문 농어촌·벽오지에서도 필요한 시간에 호출하고, 가상정류장 기반으로 생활 이동을 연결합니다.</span></div><div class="cover-card"><b>보령시 운영 사례 기반</b><span>청소면 불러보령의 실제 운영 데이터를 바탕으로 도입 조건과 성과 지표를 제시합니다.</span></div></div>
+          <div class="cover-note"><span class="dot"></span> 택시형 DRT 도입 검토용 · 사례 수치는 보령시 불러보령 기준</div><span class="page-number">01 / 08</span>
+        </section>
+
+        <section class="page" aria-labelledby="drt-page2-title">
+          <div class="brand"><img class="brand-logo" src="./assets/symbol_blue.svg" alt="셔클"></div><div class="eyebrow">THE DRT DECISION</div>
+          <h2 id="drt-page2-title">이용자는 오래 기다리고,<br>노선은 비어 달리는 <span class="strong">저수요 구간</span>이 있습니다.</h2>
+          <p class="lead">택시형 DRT는 노선·시간표를 그대로 유지하는 대신, 지역 수요에 맞춰 차량과 경로를 유연하게 설계하는 선택지입니다.</p>
+          <div class="pain-intro">도입 검토의 출발점은 택시를 더 투입하는 일이 아닙니다. 수요가 분산된 구간에서 이동 접근성, 기존 교통수단, 예산 구조를 함께 다시 보는 일입니다.</div>
+          <div class="pain-map" aria-label="저수요 노선 문제와 택시형 DRT 전환"><div class="pain-left"><div class="pain-row"><b>긴 배차 간격과 제한된 이동 선택지</b><span>보령시 청소면 사례에서 고정 노선은 하루 2~4회, 평균 대기 70분으로 나타났습니다.</span></div><div class="pain-row"><b>수요가 적어도 고정비는 계속 발생</b><span>저수요 지선은 공차와 비효율 노선 운영이 누적되기 쉽습니다.</span></div><div class="pain-row"><b>정류장 밖 주민의 접근성 한계</b><span>노선 중심 서비스만으로는 분산된 마을 수요에 촘촘히 대응하기 어렵습니다.</span></div><div class="pain-row"><b>지역 택시와의 관계 설계 필요</b><span>기존 개인택시를 활용하려면 운행 시간·면허·합승 기준을 함께 검토해야 합니다.</span></div></div><div class="pain-arrow" aria-hidden="true">→</div><div class="pain-right"><div class="pain-row"><b>호출 수요에 맞춘 실시간 배차</b><span>앱·전화 호출을 받아 차량을 배차하고, 새 수요에 따라 경로를 조정합니다.</span></div><div class="pain-row"><b>택시 활용으로 초기 투자 부담 완화</b><span>기존 개인택시를 활용해 차량 매입과 차고지 등 신규 투자 부담을 줄일 수 있습니다.</span></div><div class="pain-row"><b>면 단위·가상정류장으로 접근성 확대</b><span>수요 분포에 맞춰 서비스 지역과 승·하차 지점을 설계합니다.</span></div><div class="pain-row"><b>합승·한정면허 등 제도 조건 검토</b><span>사업 여건에 맞게 실증특례와 운행 기준을 함께 준비합니다.</span></div></div></div>
+          <div class="decision-question"><div class="question-mark">?</div><div><strong>핵심 의사결정 질문</strong><span>우리 지역의 저수요 구간은 고정 노선 유지보다, 호출 기반의 유연한 이동 서비스가 더 적합한가?</span></div></div><span class="page-number">02 / 08</span>
+        </section>
+
+        <section class="page" aria-labelledby="drt-page3-title">
+          <div class="brand"><img class="brand-logo" src="./assets/symbol_blue.svg" alt="셔클"></div><div class="eyebrow">REAL-TIME SERVICE LOOP</div>
+          <h2 id="drt-page3-title">호출부터 경로·합승까지,<br><span class="strong">수요 흐름에 맞춰</span> 다시 계산합니다.</h2><p class="lead">이용자의 호출을 받고 끝나는 것이 아니라, 운행 중 새 수요까지 반영해 배차와 경로를 계속 조정합니다.</p>
+          <div class="loop"><div class="loop-card"><div class="loop-number">01 · CALL</div><div class="loop-icon">◎</div><b>앱·전화 호출</b><span>디지털 이용이 어려운 주민도 전화로 같은 서비스에 연결</span></div><div class="loop-card"><div class="loop-number">02 · DISPATCH</div><div class="loop-icon">↗</div><b>실시간 배차</b><span>탑승 위치와 차량 위치를 바탕으로 배차 후보를 계산</span></div><div class="loop-card"><div class="loop-number">03 · ROUTE</div><div class="loop-icon">⌁</div><b>경로·합승 조정</b><span>운행 중 들어온 수요를 반영해 경로와 합승 가능성을 조정</span></div><div class="loop-card"><div class="loop-number">04 · LEARN</div><div class="loop-icon">▥</div><b>수요 데이터 축적</b><span>호출·탑승·대기·운행 기록을 다음 서비스 설계에 활용</span></div></div>
+          <div class="operating-model"><h3>플랫폼이 제공하는 흐름, 지자체가 결정하는 기준</h3><div class="model-grid"><div class="model-item"><b>셔클 플랫폼</b><span>호출·배차·합승·운행 이력과 수요 데이터를 하나의 서비스 흐름으로 연결합니다.</span></div><div class="model-item"><b>지자체·사업 주체</b><span>서비스 지역, 운행 시간, 요금, 정류장, 차량 대수와 제도 적용 범위를 결정합니다.</span></div></div></div>
+          <div class="quote">“택시형 DRT는 노선을 단순히 대체하는 것이 아니라, 지역의 분산된 수요에 맞춰 이동 방식을 다시 설계하는 일입니다.”</div><span class="page-number">03 / 08</span>
+        </section>
+
+        <section class="page" aria-labelledby="drt-page4-title">
+          <div class="brand"><img class="brand-logo" src="./assets/symbol_blue.svg" alt="셔클"></div><div class="eyebrow">DESIGN CONDITIONS</div>
+          <h2 id="drt-page4-title">택시형 DRT는 <span class="strong">대상지·운영수단·제도</span>를 함께 설계합니다.</h2><p class="lead">보령시 사례처럼 서비스 방식만 정하는 것이 아니라, 지역의 수요와 공급·제도 조건을 함께 검토해야 합니다.</p>
+          <div class="solution-table" role="table" aria-label="택시형 DRT 도입 검토 항목"><div class="solution-row solution-head" role="row"><div>도입 검토 항목</div><div>지역에서 정할 내용</div><div>셔클 플랫폼이 돕는 일</div></div><div class="solution-row" role="row"><div class="solution-pain">대상지 선정</div><div class="solution-answer">대중교통 공급, 실제 이동 수요, 고령화·교통취약 여건을 바탕으로 우선 지역을 정합니다.</div><div class="solution-proof">호출·탑승·대기 데이터를 바탕으로 수요 패턴을 확인</div></div><div class="solution-row" role="row"><div class="solution-pain">운영수단 설계</div><div class="solution-answer">기존 지선 노선의 대체 범위, 차량 대수, 호출·합승 방식, 앱·전화 접근 경로를 정합니다.</div><div class="solution-proof">실시간 배차·경로 조정과 운행 이력 관리</div></div><div class="solution-row" role="row"><div class="solution-pain">제도·운수사 협의</div><div class="solution-answer">택시 합승, 한정면허, 운행 시간과 일반택시 전환 기준을 사업 여건에 맞춰 검토합니다.</div><div class="solution-proof">운행 시간·수요·차량별 기록을 협의 근거로 제공</div></div><div class="solution-row" role="row"><div class="solution-pain">성과 기준 설정</div><div class="solution-answer">대기시간, 이용 수요, 합승률, 차량당 수송, 운송원가 중 무엇을 볼지 합의합니다.</div><div class="solution-proof">기간·시간대·정류장별 성과 데이터 제공</div></div></div>
+          <div class="note-box"><b>도입의 포인트</b><span>택시형 DRT의 효과는 지역별 수요·요금·운행 조건에 따라 달라집니다. 보령시 사례 수치는 하나의 운영 참고 사례로만 확인해 주세요.</span></div><span class="page-number">04 / 08</span>
+        </section>
+
+        <section class="page" aria-labelledby="drt-page5-title">
+          <div class="brand"><img class="brand-logo" src="./assets/symbol_blue.svg" alt="셔클"></div><div class="eyebrow">CASE EVIDENCE · BORYEONG</div>
+          <h2 id="drt-page5-title">택시형 DRT의 성과도,<br><span class="strong">매일 쌓이는 운행 데이터</span>로 확인합니다.</h2>
+          <div class="case-banner"><b>보령시 청소면 불러보령 · 2025.12.16~2026.09.30</b><span>아래 수치는 보령시 청소면의 특정 운영 조건에서 나타난 사례이며, 다른 지역의 성과를 보장하지 않습니다.</span></div>
+          <div class="metric-grid"><div class="metric"><b>누적 이용 수요</b><strong>13,590건</strong><span>2025.12~2026.09</span></div><div class="metric"><b>주민 가입</b><strong>1,180명</strong><span>전화 860명 · 앱 320명</span></div><div class="metric"><b>합승 도입 후 평균 대기</b><strong>5.40분</strong><span>택시형 DRT 도입 후 6.35분</span></div><div class="metric"><b>운행 거점</b><strong>69개</strong><span>기존 52개에서 17개 확대</span></div></div>
+          <div class="data-intro"><h3>셔클이 제공하는 DRT 데이터 예시</h3><p>호출부터 탑승·경로·합승까지의 기록을 서비스 품질과 다음 운행 설계에 활용할 수 있도록 연결합니다.</p></div><div class="data-catalog"><div class="data-card"><b>수요 현황</b><span>호출·탑승 건수, 일·월별 추이, 시간대·정류장별 수요 분포</span></div><div class="data-card"><b>이용 접근</b><span>앱·전화 호출 비중, 주민 가입 현황, 정류장·가상정류장 이용</span></div><div class="data-card"><b>배차 품질</b><span>대기시간, 배차 결과, 차량별 운행·수송, 합승 흐름</span></div><div class="data-card"><b>운행 효율</b><span>경로·공차·운행시간과 비용 검토에 활용할 수 있는 운행 이력</span></div></div>
+          <p class="source">출처: 「보령시 불러보령 택시형 DRT 도입사례」, 2026.10.17, 11~14쪽. 가입·수요·대기 수치는 해당 기간·지역 기준.</p><span class="page-number">05 / 08</span>
+        </section>
+
+        <section class="page" aria-labelledby="drt-page6-title">
+          <div class="brand"><img class="brand-logo" src="./assets/symbol_blue.svg" alt="셔클"></div><div class="eyebrow">FROM FIXED ROUTE TO DRT</div>
+          <h2 id="drt-page6-title">고정 노선을 바꿀 때,<br><span class="strong">대기·수요·비용</span>을 함께 봐야 합니다.</h2><p class="lead">보령시 사례는 택시형 DRT와 합승을 단계적으로 적용해 서비스 개선과 비용 구조를 함께 확인한 사례입니다.</p>
+          <div class="reality-grid"><article class="reality"><span class="pill green">이동 편의</span><h3>대기시간 70분에서 6.35분으로</h3><p>청소면 고정 노선의 평균 대기 70분과 비교해, 택시형 DRT 도입 후 평균 대기시간은 6.35분으로 나타났습니다.</p><span class="answer">→ 호출 기반으로 필요한 시간의 이동 선택지를 확대</span></article><article class="reality"><span class="pill">합승 운영</span><h3>합승 도입 후 5.40분·수요 49건/일</h3><p>합승 도입 전후 평균 대기시간은 15.0% 줄고, 이용 수요는 11.4% 증가한 것으로 제시됐습니다.</p><span class="answer">→ 지역 수요에 맞춘 합승 기준을 검토</span></article><article class="reality"><span class="pill green">재정 효율</span><h3>버스 1대 대비 약 6.0% 낮은 일 비용</h3><p>사례의 표준원가 기준, 버스 1대 606,653원/일과 택시형 DRT 3대 570,000원/일을 비교했습니다.</p><span class="answer">→ 비용만이 아닌 서비스 개선과 함께 판단</span></article></div>
+          <div class="boundary"><b>사례를<br>해석하는 방법</b><p><strong>수요 수준과 운행 조건</strong>에 따라 택시형 DRT의 적정 차량 대수·합승 방식·비용은 달라집니다. 지역의 통행 수요, 기존 노선, 운수사 협력, 제도 적용 가능성을 함께 검토한 뒤 설계해야 합니다.</p></div><div class="quote">택시형 DRT는 ‘버스를 줄이는’ 선택이 아니라, 저수요 지역의 이동 품질을 더 지속 가능하게 만드는 선택입니다.</div><p class="source">출처: 「보령시 불러보령 택시형 DRT 도입사례」, 2026.10.17, 13~15쪽.</p><span class="page-number">06 / 08</span>
+        </section>
+
+        <section class="page" aria-labelledby="drt-page7-title">
+          <div class="brand"><img class="brand-logo" src="./assets/symbol_blue.svg" alt="셔클"></div><div class="eyebrow">START WITH LOCAL CONDITIONS</div>
+          <h2 id="drt-page7-title">도입은 차량 선택이 아니라,<br><span class="strong">지역 수요에 맞춘 이동 설계</span>에서 시작합니다.</h2><p class="lead">셔클은 지역의 기존 교통수단과 주민의 실제 이동 수요를 바탕으로, 택시형 DRT가 적합한 구간과 운영 기준을 함께 검토합니다.</p>
+          <div class="roadmap" aria-label="택시형 DRT 도입 검토 순서"><div class="roadmap-step"><b>STEP 01</b><h3>대상지 진단</h3><p>기존 노선, 배차 간격, 수요 분포, 교통취약 여건을 함께 확인합니다.</p></div><div class="roadmap-step"><b>STEP 02</b><h3>운행 구조 설계</h3><p>서비스 지역·정류장, 호출 방식, 차량 대수, 운영 시간과 합승 기준을 정합니다.</p></div><div class="roadmap-step"><b>STEP 03</b><h3>운수·제도 협의</h3><p>운수사 참여 방식과 한정면허·실증특례 등 적용 조건을 검토합니다.</p></div><div class="roadmap-step"><b>STEP 04</b><h3>성과 기준 합의</h3><p>대기·탑승·합승·운행 효율·비용 중 정기적으로 볼 지표를 결정합니다.</p></div></div>
+          <div class="section-rule"></div><div class="label">첫 미팅 전, 이 네 가지를 준비해 주세요</div><div class="checklist"><div class="check"><i>✓</i><div><b>기존 노선과 이용 현황</b><span>배차 간격, 이용 수요, 공차·적자 구간 등 현재의 이동 구조</span></div></div><div class="check"><i>✓</i><div><b>대상 지역과 이동 목적</b><span>고령 주민, 통학·통근, 장보기·의료 등 우선 지원할 이동</span></div></div><div class="check"><i>✓</i><div><b>택시·운수사 협력 여건</b><span>참여 가능 차량, 운행 시간, 요금·합승에 대한 현장 조건</span></div></div><div class="check"><i>✓</i><div><b>제도·예산 검토 범위</b><span>한정면허·실증특례 검토 필요성과 차량·운영 예산의 기준</span></div></div></div><div class="note-box"><b>다음 단계</b><span>수요 진단을 바탕으로 적정 서비스 지역·차량 대수·정류장·운행 기준과 성과 지표를 함께 제안합니다.</span></div><span class="page-number">07 / 08</span>
+        </section>
+
+        <section class="page closing" aria-label="택시형 DRT 마무리"><div class="brand"><img class="brand-logo" src="./assets/symbol_white.svg" width="160" height="153" alt="셔클"></div><div class="eyebrow">A MORE FLEXIBLE RURAL MOBILITY</div><h2>노선은 유연하게,<br>이동의 선택지는 <span style="color:#8cffc0">넓게</span>,<br>지역은 더 지속 가능하게.</h2><p class="lead">셔클 택시형 DRT는 지역의 분산된 수요를 호출·배차·경로 데이터로 연결해, 주민 이동의 불편과 저수요 노선의 비효율을 함께 줄이는 기반을 제공합니다.</p><div class="closing-statement"><div><b>호출로 시작하고</b><span>앱·전화 호출을 하나의 서비스 흐름으로 연결합니다.</span></div><div><b>경로는 유연하게</b><span>새 수요와 합승 가능성을 반영해 운행 경로를 조정합니다.</span></div><div><b>데이터로 확인하고</b><span>대기·탑승·운행 기록으로 서비스 품질과 효율을 살핍니다.</span></div><div><b>지역에 맞춰 확장하고</b><span>수요 수준에 맞춰 차량·정류장·운행 기준을 조정합니다.</span></div></div><p class="source">사례 데이터 출처: 「보령시 불러보령 택시형 DRT 도입사례」(2026.10.17). 구체적인 적용 범위와 제도 검토는 지역별 사업 설계 과정에서 협의합니다.</p><span class="page-number">08 / 08</span></section>`;
+
+      const bindInquiry = (serviceName) => {
+        const form = deck.querySelector('.contact-capture');
+        if (!form) return;
+        form.addEventListener('submit', (event) => {
+          event.preventDefault();
+          if (!form.reportValidity()) return;
+          const details = new FormData(form);
+          const lines = [`셔클 ${serviceName} 도입 상담을 요청합니다.`, '', '소속기관: ' + details.get('소속기관'), '이름: ' + details.get('이름'), '연락처: ' + details.get('연락처'), '이메일: ' + details.get('이메일')];
+          window.location.href = 'mailto:' + form.dataset.recipient + '?subject=' + encodeURIComponent(`[셔클 ${serviceName}] 도입 상담 신청`) + '&body=' + encodeURIComponent(lines.join('\n'));
+          form.innerHTML = '<div class="contact-confirmation" role="status"><strong>이메일 앱이 열리면 내용을 확인해 주세요.</strong><span>메일 앱에서 <strong>보내기</strong>를 누르면 담당자에게 전달됩니다.</span></div>';
+        });
+      };
+      const render = (service) => {
+        const isDrt = service === 'drt';
+        document.body.dataset.service = service;
+        deck.innerHTML = isDrt ? drtDeck : publicTaxiDeck;
+        choices.forEach((choice) => choice.setAttribute('aria-pressed', String(choice.dataset.serviceChoice === service)));
+        bindInquiry(isDrt ? '택시형 DRT' : '공공형택시');
+      };
+      choices.forEach((choice) => choice.addEventListener('click', () => render(choice.dataset.serviceChoice)));
+      bindInquiry('공공형택시');
+    })();
+  </script>
+</body>
+</html>
