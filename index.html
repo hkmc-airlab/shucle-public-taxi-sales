@@ -73,7 +73,7 @@
       align-items: center;
       line-height: 0;
     }
-    .brand-logo { display: block; width: 28px; height: 27px; object-fit: contain; }
+    .brand-logo { display: block; width: 28px; height: auto; aspect-ratio: 160 / 153; object-fit: contain; }
     .eyebrow {
       position: relative;
       z-index: 2;
@@ -101,11 +101,31 @@
     .cover::before { content: ""; position: absolute; width: 180mm; height: 180mm; right: -70mm; top: -72mm; border: 1px solid rgba(130, 195, 255, .22); border-radius: 50%; }
     .cover::after { width: 110mm; height: 110mm; right: -48mm; bottom: -36mm; border-color: rgba(0, 215, 64, .35); }
     .cover .brand, .closing .brand { padding: 0; background: transparent; }
-    .cover .brand-logo, .closing .brand-logo { width: 34px; height: 33px; }
+    .cover .brand-logo, .closing .brand-logo { width: 34px; height: auto; }
     .cover .eyebrow { color: #8ab9ff; margin-top: 40px; }
     .cover h1 { max-width: 495px; font-size: 43px; }
     .cover h1 em { color: #8cffc0; font-style: normal; }
     .cover .lead { color: #c7d7ed; max-width: 455px; }
+    .contact-capture { position:relative; z-index:2; max-width:520px; margin-top:22px; padding:16px; border:1px solid rgba(167, 205, 255, .34); border-radius:12px; background:rgba(3, 22, 47, .34); }
+    .contact-capture h2 { color:#fff; font-size:16px; line-height:1.35; letter-spacing:-.035em; }
+    .contact-capture p { margin-top:4px; color:#c7d7ed; font-size:10px; line-height:1.55; }
+    .contact-fields { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+    .contact-field { min-width:0; }
+    .contact-field label { display:block; margin:0 0 4px 1px; color:#dce9fc; font-size:10px; font-weight:800; }
+    .contact-field input { width:100%; min-height:36px; padding:8px 10px; border:1px solid rgba(206, 225, 250, .30); border-radius:7px; outline:none; color:#fff; background:rgba(255,255,255,.09); font:inherit; font-size:12px; transition:border-color .18s ease, background .18s ease, box-shadow .18s ease; }
+    .contact-field input::placeholder { color:#aebfd7; opacity:1; }
+    .contact-field input:hover { border-color:rgba(206, 225, 250, .56); }
+    .contact-field input:focus-visible { border-color:#8cffc0; background:rgba(255,255,255,.13); box-shadow:0 0 0 3px rgba(140,255,192,.16); }
+    .contact-footer { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:11px; }
+    .privacy-consent { display:flex; flex:1; gap:6px; align-items:flex-start; color:#c7d7ed; font-size:9px; line-height:1.45; }
+    .privacy-consent input { flex:0 0 auto; width:14px; height:14px; margin:0; accent-color:#8cffc0; }
+    .contact-submit { flex:0 0 auto; min-height:34px; padding:8px 12px; border:0; border-radius:7px; color:#071b34; background:#8cffc0; font:inherit; font-size:11px; font-weight:900; cursor:pointer; transition:transform .18s ease, background .18s ease; }
+    .contact-submit:hover { background:#b0ffd2; transform:translateY(-1px); }
+    .contact-submit:focus-visible { outline:3px solid rgba(140,255,192,.56); outline-offset:2px; }
+    .contact-submit:active { transform:translateY(0); }
+    .contact-confirmation { padding:4px 0 1px; }
+    .contact-confirmation strong { display:block; color:#b0ffd2; font-size:16px; letter-spacing:-.035em; }
+    .contact-confirmation span { display:block; margin-top:5px; color:#d5e3f6; font-size:11px; line-height:1.55; }
     .cover-grid { position: relative; z-index: 2; display: grid; grid-template-columns: 1.2fr .8fr; gap: 12px; margin-top: auto; padding-top: 36px; }
     .cover-card { min-height: 87px; padding: 15px; border: 1px solid rgba(255,255,255,.20); border-radius: 10px; background: rgba(255,255,255,.07); backdrop-filter: blur(5px); }
     .cover-card b { display: block; margin-bottom: 7px; font-size: 13px; }
@@ -252,6 +272,10 @@
       .cover h1 { font-size:38px; }
       h2 { font-size:25px; }
       .cover-grid, .two-col, .case-grid, .checklist { grid-template-columns:1fr; }
+      .contact-capture { margin-top:18px; padding:15px; }
+      .contact-fields { grid-template-columns:1fr; gap:9px; }
+      .contact-footer { align-items:flex-start; flex-direction:column; }
+      .contact-submit { width:100%; }
       .three-col, .reality-grid, .data-catalog { grid-template-columns:1fr; }
       .metric-grid, .loop, .roadmap { grid-template-columns:1fr 1fr; }
       .solution-row { grid-template-columns: 1fr; }
@@ -262,6 +286,8 @@
       .roadmap-step { min-height:112px; padding-left:16px; }
       .roadmap-step:first-child { padding-left:16px; }
       .roadmap-step:first-child::before { left:-4px; }
+      .closing .brand { top:24px; left:24px; }
+      .closing .brand-logo { width:30px; }
     }
     @media print {
       @page { size: A4; margin: 0; }
@@ -271,6 +297,7 @@
       .page:last-child { break-after:auto; page-break-after:auto; }
       .page::after { print-color-adjust:exact; -webkit-print-color-adjust:exact; }
       .cover, .closing, .case-banner, .case-insight, .decision-question { print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+      .contact-capture { display:none; }
       .card, .problem-card, .loop-card, .metric, .reality, .check { break-inside:avoid; page-break-inside:avoid; }
     }
   </style>
@@ -294,6 +321,24 @@
       <div class="eyebrow">PUBLIC TAXI · MUNICIPALITY SALES DECK</div>
       <h1>공공형택시를<br><em>근거 있는</em><br>이동지원사업으로</h1>
       <p class="lead">셔클 공공형택시는 주민의 이동을 돕는 정책을, 이용·예산·성과 데이터까지 연결된 하나의 공공 이동 서비스로 만듭니다.</p>
+      <form class="contact-capture" action="https://formsubmit.co/yudamchoi@hyundai.com" method="POST">
+        <input type="hidden" name="_subject" value="[셔클 공공형택시] 도입 상담 신청">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://hkmc-airlab.github.io/shucle-public-taxi-sales/?inquiry=received">
+        <h2>우리 지역에 맞는 공공형택시를 검토해 보세요.</h2>
+        <p>연락처를 남겨 주시면 셔클 담당자가 도입 상담을 준비합니다.</p>
+        <div class="contact-fields">
+          <div class="contact-field"><label for="organization">소속기관</label><input id="organization" name="소속기관" type="text" autocomplete="organization" placeholder="예: ○○군청" required></div>
+          <div class="contact-field"><label for="name">이름</label><input id="name" name="이름" type="text" autocomplete="name" placeholder="이름을 입력해 주세요" required></div>
+          <div class="contact-field"><label for="phone">연락처</label><input id="phone" name="연락처" type="tel" autocomplete="tel" inputmode="tel" placeholder="010-0000-0000" required></div>
+          <div class="contact-field"><label for="email">이메일</label><input id="email" name="이메일" type="email" autocomplete="email" placeholder="name@example.com" required></div>
+        </div>
+        <div class="contact-footer">
+          <label class="privacy-consent"><input name="개인정보 수집·이용 동의" type="checkbox" value="동의" required><span>상담 연락을 위해 입력 정보를 수집·이용하는 것에 동의합니다. 정보는 FormSubmit을 통해 <strong>yudamchoi@hyundai.com</strong>으로 전송됩니다.</span></label>
+          <button class="contact-submit" type="submit">도입 상담 신청</button>
+        </div>
+      </form>
       <div class="cover-grid">
         <div class="cover-card"><b>의사결정의 질문을 바꿉니다</b><span>“택시를 지원할 수 있는가”에서 “서비스 품질과 예산 집행을 지속해서 증명할 수 있는가”로.</span></div>
         <div class="cover-card"><b>영암군 운영 사례 기반</b><span>정식오픈 D+84의 실제 운영 데이터에서 출발해, 도입 전 꼭 설계해야 할 과제를 제시합니다.</span></div>
@@ -305,9 +350,9 @@
     <section class="page" aria-labelledby="page2-title">
       <div class="brand"><img class="brand-logo" src="./assets/symbol_blue.svg" alt="셔클"></div>
       <div class="eyebrow">THE REAL DECISION</div>
-      <h2 id="page2-title">문제는 택시가 아닙니다.<br>사업의 근거가 <span class="strong">사람과 엑셀에 흩어지는 구조</span>입니다.</h2>
-      <p class="lead">기존 공공형택시는 정책 취지는 분명하지만, 실제 사업 추진에서는 담당자·콜센터·기사·정산사 사이의 정보 단절이 반복됩니다.</p>
-      <div class="pain-intro">도입 검토 단계에서 해결해야 할 것은 ‘호출 수단’ 하나가 아닙니다. 대상자 관리부터 공급 품질, 예산 증빙, 성과 보고까지 이어지는 운영의 빈틈입니다.</div>
+      <h2 id="page2-title">지자체·이용자·기사님 모두에게<br><span class="strong">편리하고 지속 가능한</span> 공공형택시</h2>
+      <p class="lead">공공형택시는 주민의 이동 편의와 기사님의 참여, 지자체의 정책 실행이 하나의 흐름으로 이어질 때 오래 지속될 수 있습니다.</p>
+      <div class="pain-intro">도입 검토 단계에서는 호출 수단뿐 아니라 대상자 관리, 공급 품질, 예산 증빙, 성과 보고까지 각 주체가 편리하게 연결되는 서비스를 함께 설계해야 합니다.</div>
       <div class="pain-map" aria-label="기존 방식의 문제와 플랫폼 전환">
         <div class="pain-left">
           <div class="pain-row"><b>대상자·혜택 관리의 수기 의존</b><span>자격 확인, 이용 한도, 예외 처리가 담당자 개인의 파일과 기억에 흩어집니다.</span></div>
@@ -428,7 +473,7 @@
     </section>
 
     <section class="page closing" aria-label="마무리">
-      <div class="brand"><img class="brand-logo" src="./assets/symbol_white.svg" alt="셔클"></div>
+      <div class="brand"><img class="brand-logo" src="./assets/symbol_white.svg" width="160" height="153" alt="셔클"></div>
       <div class="eyebrow">A MORE SCALABLE PUBLIC TAXI</div>
       <h2>운영 공수는 줄이고,<br>데이터는 <span style="color:#8cffc0">보강</span>하고,<br>서비스 확대는 쉽게.</h2>
       <p class="lead">셔클 공공형택시는 반복 업무에 드는 공수는 최소화하고, 정책 판단에 필요한 데이터는 보강해 더 쉽게 확장할 수 있는 공공 이동 서비스 기반을 제공합니다.</p>
@@ -437,5 +482,13 @@
       <span class="page-number">08 / 08</span>
     </section>
   </main>
+  <script>
+    (() => {
+      if (new URLSearchParams(window.location.search).get('inquiry') !== 'received') return;
+      const form = document.querySelector('.contact-capture');
+      if (!form) return;
+      form.innerHTML = '<div class="contact-confirmation" role="status"><strong>상담 신청이 접수되었습니다.</strong><span>남겨 주신 연락처로 셔클 담당자가 도입 상담을 준비해 연락드리겠습니다.</span></div>';
+    })();
+  </script>
 </body>
 </html>
