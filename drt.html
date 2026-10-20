@@ -35,10 +35,12 @@
       -webkit-font-smoothing: antialiased;
     }
     ::selection { color:#fff; background:var(--blue); }
-    .service-switcher { position:fixed; z-index:20; top:16px; right:18px; display:flex; align-items:center; gap:3px; padding:4px; border:1px solid rgba(255,255,255,.28); border-radius:12px; background:rgba(7,27,52,.88); box-shadow:0 8px 24px rgba(7,27,52,.22); backdrop-filter:blur(12px); }
-    .service-switcher button { min-height:34px; padding:7px 10px; border:0; border-radius:8px; color:#c9d8ec; background:transparent; font:800 11px/1 Pretendard, "Noto Sans KR", sans-serif; cursor:pointer; transition:color .18s ease, background .18s ease, transform .18s ease; }
+    .service-switcher { position:fixed; z-index:20; top:16px; right:18px; display:flex; align-items:center; gap:6px; padding:6px; border:1px solid rgba(180,209,247,.55); border-radius:14px; background:rgba(7,27,52,.96); box-shadow:0 10px 26px rgba(7,27,52,.26); }
+    .service-switcher-label { margin:0 4px 0 6px; color:#c9d8ec; font-size:10px; font-weight:800; letter-spacing:-.02em; }
+    .service-switcher button { display:inline-flex; align-items:center; justify-content:center; gap:6px; min-height:42px; padding:9px 14px; border:0; border-radius:9px; color:#dce9fc; background:transparent; font:900 13px/1 Pretendard, "Noto Sans KR", sans-serif; cursor:pointer; transition:color .18s ease, background .18s ease, transform .18s ease; }
     .service-switcher button:hover { color:#fff; background:rgba(255,255,255,.12); }
     .service-switcher button[aria-pressed="true"] { color:#071b34; background:#8cffc0; }
+    .service-switcher button[aria-pressed="true"]::before { content:"✓"; font-size:12px; }
     .service-switcher button:focus-visible { outline:3px solid #8cffc0; outline-offset:2px; }
     body[data-service="drt"] { --blue:#1769ff; --blue-soft:#eaf1ff; }
     .deck { max-width: 210mm; margin: 0 auto; background: var(--paper); box-shadow: var(--shadow); }
@@ -137,6 +139,7 @@
     .cover-card b { display: block; margin-bottom: 7px; font-size: 13px; }
     .cover-card span { display: block; color: #c7d7ed; font-size: 11px; line-height: 1.55; }
     .cover-note { position: relative; z-index: 2; display:flex; gap:7px; align-items:center; margin-top:18px; color:#aabbd4; font-size:10px; }
+    .cover .cover-note { margin-top:auto; padding-top:24px; }
     .dot { width: 5px; height: 5px; border-radius: 50%; background: #00d740; }
 
     /* General components */
@@ -270,8 +273,9 @@
     .closing .source { position:relative; z-index:2; margin-top:20px; color:#8ca5c3; }
 
     @media screen and (max-width: 680px) {
-      .service-switcher { top:12px; right:12px; }
-      .service-switcher button { min-height:32px; padding:7px 9px; font-size:11px; }
+      .service-switcher { top:12px; right:12px; gap:4px; padding:4px; }
+      .service-switcher-label { display:none; }
+      .service-switcher button { min-height:38px; padding:8px 11px; font-size:12px; }
       body { background:#fff; }
       .deck { width:100%; box-shadow:none; }
       .page { min-height:auto; padding:32px 24px 55px; }
@@ -313,6 +317,7 @@
 </head>
 <body data-service="publicTaxi">
   <div class="service-switcher" role="group" aria-label="검토할 서비스 선택">
+    <span class="service-switcher-label">검토할 서비스</span>
     <button type="button" data-service-choice="drt" aria-pressed="false">택시형 DRT</button>
     <button type="button" data-service-choice="publicTaxi" aria-pressed="true">공공형택시</button>
   </div>
@@ -348,10 +353,6 @@
           <button class="contact-submit" type="submit">상담 메일 작성</button>
         </div>
       </form>
-      <div class="cover-grid">
-        <div class="cover-card"><b>의사결정의 질문을 바꿉니다</b><span>“택시를 지원할 수 있는가”에서 “서비스 품질과 예산 집행을 지속해서 증명할 수 있는가”로.</span></div>
-        <div class="cover-card"><b>영암군 운영 사례 기반</b><span>정식오픈 D+84의 실제 운영 데이터에서 출발해, 도입 전 꼭 설계해야 할 과제를 제시합니다.</span></div>
-      </div>
       <div class="cover-note"><span class="dot"></span> 지자체 공공형택시 도입 검토용 · PDF 변환 최적화본</div>
       <span class="page-number">01 / 08</span>
     </section>
@@ -515,7 +516,6 @@
           <h1>저수요 노선을<br><em>수요에 맞춘</em><br>택시형 DRT로</h1>
           <p class="lead">셔클 택시형 DRT는 앱·전화 호출과 실시간 배차를 연결해, 주민의 이동 선택지는 넓히고 지자체의 비효율 노선 부담은 줄입니다.</p>
           ${inquiryForm('택시형 DRT')}
-          <div class="cover-grid"><div class="cover-card"><b>고정 노선의 빈자리를 바꿉니다</b><span>수요가 드문 농어촌·벽오지에서도 필요한 시간에 호출하고, 가상정류장 기반으로 생활 이동을 연결합니다.</span></div><div class="cover-card"><b>보령시 운영 사례 기반</b><span>청소면 불러보령의 실제 운영 데이터를 바탕으로 도입 조건과 성과 지표를 제시합니다.</span></div></div>
           <div class="cover-note"><span class="dot"></span> 택시형 DRT 도입 검토용 · 사례 수치는 보령시 불러보령 기준</div><span class="page-number">01 / 08</span>
         </section>
 
