@@ -232,6 +232,15 @@
     .data-card { padding:11px 12px; border:1px solid var(--line); border-radius:9px; background:#fff; }
     .data-card b { display:block; margin-bottom:5px; color:var(--navy); font-size:11px; }
     .data-card span { color:var(--muted); font-size:10px; line-height:1.5; }
+    .interface-showcase { position:relative; z-index:2; display:grid; grid-template-columns:1.14fr 1.14fr .52fr; gap:8px; margin-top:13px; }
+    .interface-shot { min-width:0; margin:0; overflow:hidden; border:1px solid #d4dfef; border-radius:10px; background:#f3f7fc; }
+    .interface-shot img { display:block; width:100%; height:92px; object-fit:cover; object-position:center; }
+    .interface-shot.driver-app { background:#071b34; }
+    .interface-shot.driver-app img { object-fit:contain; object-position:center; }
+    .interface-shot figcaption { padding:8px 9px 9px; color:#4e5e74; font-size:11px; line-height:1.45; }
+    .interface-shot figcaption b { display:block; margin-bottom:2px; color:var(--navy); font-size:11px; }
+    .interface-shot.driver-app figcaption { color:#dce9fc; }
+    .interface-shot.driver-app figcaption b { color:#fff; }
 
     /* Page 6 */
     .reality-grid { position:relative; z-index:2; display:grid; grid-template-columns:repeat(3, 1fr); gap:9px; margin-top:17px; }
@@ -288,7 +297,9 @@
       .contact-fields { grid-template-columns:1fr; gap:9px; }
       .contact-footer { align-items:flex-start; flex-direction:column; }
       .contact-submit { width:100%; }
-      .three-col, .reality-grid, .data-catalog { grid-template-columns:1fr; }
+      .three-col, .reality-grid, .data-catalog, .interface-showcase { grid-template-columns:1fr; }
+      .interface-shot img { height:180px; }
+      .interface-shot.driver-app img { height:260px; }
       .metric-grid, .loop, .roadmap { grid-template-columns:1fr 1fr; }
       .solution-row { grid-template-columns: 1fr; }
       .solution-row > div + div { border-left:0; border-top:1px solid var(--line); }
@@ -438,6 +449,11 @@
         <div class="data-card"><b>주민 이용</b><span>호출·탑승 회원 수, 이용 방식, 연령·성별, 행정구역별 현황</span></div>
         <div class="data-card"><b>서비스 품질</b><span>평균 대기시간, 기사 수락·거절 이력, 시간대·지역별 호출과 배차 흐름</span></div>
         <div class="data-card"><b>예산·집행</b><span>이용요금·지원금 항목별 집계, 바우처 이용 현황, 건별 운행·결제 이력</span></div>
+      </div>
+      <div class="interface-showcase" aria-label="공공형택시 서비스 화면 예시">
+        <figure class="interface-shot"><img src="./assets/public-taxi-call-detail.png" alt="전화 호출의 배차와 이동 완료 이력을 확인하는 관제 화면"><figcaption><b>전화 호출·이동 이력</b>호출 방법부터 배차·승하차까지 한 건의 흐름으로 확인</figcaption></figure>
+        <figure class="interface-shot"><img src="./assets/public-taxi-live-map.png" alt="차량 위치와 전화 호출을 확인하는 관제 지도 화면"><figcaption><b>관제 지도</b>차량 위치를 보고 전화 호출을 접수·배차</figcaption></figure>
+        <figure class="interface-shot driver-app"><img src="./assets/public-taxi-driver-navigation.png" alt="기사가 콜을 수행하며 길 안내와 승객 탑승을 처리하는 앱 화면"><figcaption><b>기사 앱</b>콜 수행과 운행 상태를 현장에서 처리</figcaption></figure>
       </div>
       <p class="source">출처: 영암군 공공형 100원 택시 운영 현황 보고서(시범오픈 2026.06 ~ 정식오픈 D+84, 2026.09.23 기준). 재이용률은 완료 경험 이용자 기준.</p>
       <span class="page-number">05 / 08</span>
