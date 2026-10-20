@@ -26,17 +26,13 @@
     .details a:hover { transform:translateY(-2px); border-color:var(--mint); background:rgba(140,255,192,.12); }
     .details a:focus-visible,.submit:focus-visible { outline:3px solid var(--mint); outline-offset:3px; }
     .detail-arrow { margin-left:8px; font-size:18px; line-height:1; }
-    .form-panel { padding:clamp(22px,3vw,34px); border:1px solid rgba(201,223,249,.45); border-radius:18px; background:rgba(5,24,51,.6); box-shadow:0 22px 48px rgba(0,12,31,.22); backdrop-filter:blur(14px); }
+    .form-panel { padding:clamp(22px,3vw,34px); border:1px solid rgba(201,223,249,.45); border-radius:18px; background:rgba(5,24,51,.6); backdrop-filter:blur(14px); }
     .form-panel h2 { margin:0; color:#fff; font-size:24px; letter-spacing:-.04em; }
     .form-panel > p { margin-top:8px; color:#d5e3f6; font-size:14px; line-height:1.55; }
-    .consultation-action { margin-top:26px; padding-top:22px; border-top:1px solid rgba(205,225,249,.22); }
-    .consultation-summary { max-width:40ch; color:#c5d5e9; font-size:13px; line-height:1.65; }
-    .submit { display:inline-flex; align-items:center; justify-content:center; min-height:48px; margin-top:18px; padding:12px 19px; border-radius:10px; color:var(--navy); background:var(--mint); font:800 14px/1 Pretendard,"Noto Sans KR",sans-serif; text-decoration:none; transition:transform .18s ease,background .18s ease; }
-    .submit:hover { background:#b0ffd2; transform:translateY(-1px); }
-    .submit-note { margin:10px 0 0; color:#b8cae1; font-size:12px; line-height:1.5; }
+    .form-frame { display:block; width:100%; min-height:700px; margin-top:22px; border:0; border-radius:12px; color:var(--ink); background:#fff; }
     .footer-note { position:absolute; z-index:1; bottom:24px; left:50%; width:min(1180px,calc(100% - 48px)); transform:translateX(-50%); color:#b8cae1; font-size:12px; }
     @media (max-width:900px) { .shell { grid-template-columns:1fr; width:min(620px,calc(100% - 40px)); padding:38px 0 74px; } .intro { text-align:center; } .brand { margin:auto; } h1 { margin-right:auto; margin-left:auto; } .lead { margin-right:auto; margin-left:auto; } .details { justify-content:center; } .footer-note { width:calc(100% - 40px); text-align:center; } }
-    @media (max-width:640px) { .shell { width:calc(100% - 32px); gap:34px; } h1 { margin-top:27px; font-size:34px; } .lead { font-size:16px; } .details { display:grid; grid-template-columns:1fr; } .details a,.submit { width:100%; } .form-panel { padding:20px 16px; border-radius:15px; } }
+    @media (max-width:640px) { .shell { width:calc(100% - 32px); gap:34px; } h1 { margin-top:27px; font-size:34px; } .lead { font-size:16px; } .details { display:grid; grid-template-columns:1fr; } .details a { width:100%; } .form-panel { padding:20px 16px; border-radius:15px; } .form-frame { min-height:760px; margin-top:18px; } }
   </style>
 </head>
 <body>
@@ -53,12 +49,8 @@
       </section>
       <section class="form-panel" aria-labelledby="inquiry-title">
         <h2 id="inquiry-title">도입 상담 문의</h2>
-        <p>정보를 남겨 주시면 담당자가 지역 여건에 맞는 상담을 준비합니다.</p>
-        <div class="consultation-action">
-          <p class="consultation-summary">소속기관, 연락처, 관심 서비스를 간단히 남겨 주시면 상담 담당자가 확인합니다.</p>
-          <a class="submit" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=8aVc-COqUkKoOkQ9Mzsf5wYQvZd07sZJiqVt-oHapi1UNjJZQVBUTU9JWUpYM09GT1RIQVQ4Q0c3OC4u" target="_blank" rel="noopener noreferrer" aria-label="Microsoft Forms에서 상담 문의 남기기, 새 창 열림">상담 문의 남기기</a>
-          <p class="submit-note">Microsoft Forms가 새 창에서 열립니다.</p>
-        </div>
+        <p>아래 양식에서 정보를 남겨 주시면 담당자가 지역 여건에 맞는 상담을 준비합니다.</p>
+        <iframe class="form-frame" title="셔클 공공교통 도입 상담 양식" src="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=8aVc-COqUkKoOkQ9Mzsf5wYQvZd07sZJiqVt-oHapi1UNjJZQVBUTU9JWUpYM09GT1RIQVQ4Q0c3OC4u&amp;embed=true" loading="lazy"><span style="color:#071b34">양식이 보이지 않으면 <a style="color:#071b34" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=8aVc-COqUkKoOkQ9Mzsf5wYQvZd07sZJiqVt-oHapi1UNjJZQVBUTU9JWUpYM09GT1RIQVQ4Q0c3OC4u" target="_blank" rel="noopener noreferrer">상담 양식 열기</a>를 선택해 주세요.</span></iframe>
       </section>
     </div>
     <p class="footer-note">Shucle Public Mobility Platform</p>
